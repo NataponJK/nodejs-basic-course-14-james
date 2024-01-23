@@ -12,32 +12,32 @@ const userDatabase = {
   22: "Mano",
 };
 
-app.get("/users/:userId", (req, res) => {
-  const userId = req.params.userId;
-  const name = userDatabase[userId];
+app.get("/users/:userId", (reqeust, response) => {
+  const userId = reqeust.params.userId;
+  const user = userDatabase[userId]
 
-  if (!name) {
-    res.send(`Error User ID ${userId} not found`);
+  if (!userId) {
+    response.send(`Error User ID ${userId} not found`);
     return;
   }
 
   // 1. Implement: returns JSON response
-  res.send(`User ID: ${userId} (Name: ${name})`);
+  response.send({ data: {id: userId, name: user}});
 });
 
-app.post("/users/:userId", (req, res) => {
-  const userId = req.params.userId;
-  const name = req.body.name;
+app.post("/users/:userId", (reqeust, response) => {
+  const userId = reqeust.params.userId;
+//  const user = userDatabase[userId]
+  const name = reqeust.body.name;
 
   if (!userDatabase[userId]) {
-    res.send(`Error User ID ${userId} not found`);
+    response.send(`Error User ID ${userId} not found`);
     return;
   }
-
   userDatabase[userId] = name;
 
   // 2. Implement: returns JSON response
-  res.send(`User ID: ${userId}, name has been updated to ${name}`);
+  response.send({data: {id: userId, name: name}});
 });
 
 app.listen(port, () => {
