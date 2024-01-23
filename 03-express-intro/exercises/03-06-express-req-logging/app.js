@@ -1,16 +1,28 @@
-import express from "express";
+import express, { response } from "express";
 import { isValidName } from "./utils.js";
 import { logmiddlewares } from "./middlewares/logmiddlewares.js";
 
 const app = express();
 const port = 8000;
 
+//app.use(logmiddlewares()); // log public
+// app.use((req, res, next) =>{
+//       const date = new Date
+//       console.log(date, req.method, req.originalUrl);
+//       next();}
+// )
+
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(logmiddlewares()); //log public
 app.use(express.static("public"));
 
-app.use(logmiddlewares());
-
+//app.use(logmiddlewares()); //does not log public
+// app.use((req, res, next) =>{
+//       const date = new Date
+//       console.log(date, req.method, req.originalUrl);
+//       next();}
+// )
 
 // user database variable here:
 const userDatabase = {
