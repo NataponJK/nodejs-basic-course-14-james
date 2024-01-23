@@ -1,4 +1,4 @@
-import express, { response } from "express";
+import express from "express";
 import { isValidName } from "./utils.js";
 import { logmiddlewares } from "./middlewares/logmiddlewares.js";
 
