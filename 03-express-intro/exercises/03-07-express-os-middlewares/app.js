@@ -1,10 +1,14 @@
 import express from "express";
 import { isValidName } from "./utils.js";
 import loggingMiddleware from "./middlewares/loggingMiddleware.js";
+import morgan from "morgan";
+import helmet from "helmet";
 
 const app = express();
 const port = 8000;
 
+app.use(morgan('dev'))
+app.use(helmet())
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static("public"));
@@ -81,7 +85,7 @@ app.post("/users/:userId", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Example app listening on http://localhost:${port}`);
 });
 
 function getPetImageUrl(userId) {
