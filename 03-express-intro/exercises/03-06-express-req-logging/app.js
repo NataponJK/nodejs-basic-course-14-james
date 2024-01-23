@@ -1,5 +1,6 @@
 import express from "express";
 import { isValidName } from "./utils.js";
+import { logmiddlewares } from "./middlewares/logmiddlewares.js";
 
 const app = express();
 const port = 8000;
@@ -7,6 +8,9 @@ const port = 8000;
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static("public"));
+
+app.use(logmiddlewares());
+
 
 // user database variable here:
 const userDatabase = {
@@ -79,7 +83,7 @@ app.post("/users/:userId", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Example app listening on port http://localhost:${port}`);
 });
 
 function getPetImageUrl(userId) {
